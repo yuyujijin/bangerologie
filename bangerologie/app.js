@@ -70,6 +70,7 @@ if (cluster.isMaster) {
                     theme: process.env.THEME || 'flatly',
                     flask_debug: process.env.FLASK_DEBUG || 'false',
                     teams: items,
+                    img_url: process.env.IMG_PATH
                 });
             }
         });
