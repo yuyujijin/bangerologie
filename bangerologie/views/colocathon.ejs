@@ -165,8 +165,8 @@
                         var map = new mapboxgl.Map({
                             container: 'map',
                             style: 'mapbox://styles/yuyujijin/cl33a940w007k14pft5wvo6sl',
-                            center: [2.811484, 49.408859],
-                            zoom: 12
+                            center: [2.814425, 49.410622],
+                            zoom: 13
                         });
 
                         const geojson = {
@@ -231,11 +231,10 @@
                                 <% for (var i=0; i < value.length; i++) { %>
                                     <div class="ticket"
                                         style="background-image: url('<%= img_url + 'equipe' + key + '.png' %>');">
-                                        <!-- <img src="<%= img_url + value[i].img.S + '.png' %>" class="ticket-photo"
-                                alt="<%= value[i].img.S %>" />
-                            -->
+
                                         <div class="ticket-photo">
-                                            <img src="<%= img_url + 'pepouche.png' %>" alt="<%= value[i].img.S %>" />
+                                            <img src="<%= img_url + 'profiles/' + value[i].img.S + '.jng' %>"
+                                                class="ticket-photo" alt="<%= value[i].img.S %>" />
                                         </div>
                                         <div class="infos">
                                             <p class="ticket-name">
