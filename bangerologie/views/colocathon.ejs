@@ -11,38 +11,152 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <style>
-        element {
-            --main-bg-color: #92f0fd;
+        @font-face {
+            font-family: "Fictoria";
+            src: url("../static/fonts/Fictoria-Regular.otf") format("otf")
         }
 
-        .container {
-            background-color: var(--main-bg-color);
+        body {
+            background-color: #a6eefe;
+        }
+
+        .header-img {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .person-list {
+            text-align: center;
+        }
+
+        .who,
+        .what,
+        .where {
+            text-align: left;
+            font-family: 'Fictoria';
+        }
+
+        .team-container {
+            margin-bottom: 20px;
+        }
+
+        .ticket {
+            border-radius: 15px;
+            background-color: lightsalmon;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            color: white;
+        }
+
+        .ticket .ticket-photo {
+            margin: 0;
+            padding: 10px;
+            width: 25%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .ticket .ticket-photo img {
+            border-radius: 100%;
+            width: 100%;
+            border: .5px solid white;
+        }
+
+        .ticket .infos {
+            margin: 0;
+            width: 70%;
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+            padding-left: 10px;
+        }
+
+        .ticket-name {
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+
+        /* computer */
+        @media (min-width: 920px) {
+            .wrapper {
+                width: 42%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .ticket {
+                width: 40%;
+                margin: 5px;
+            }
+        }
+
+        /* phones */
+        @media (max-width: 919) {
+            .wrapper {
+                margin: 0;
+                width: 100%;
+            }
+
+            .ticket {
+                width: 100%;
+                margin: 20px;
+            }
+
         }
     </style>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="content w-75">
-            <img src="<%= img_url + 'colocartoon.png' %>" class="img-fluid" alt="banner">
-            <div class="person-list">
-                <% for(var i=0; i < teams.length; i++) { %>
-                    <div class="card" style="width: 18rem;">
-                        <img src="<%= img_url + teams[i].img.S + '.png' %>" class="card-img-top"
-                            alt="<%= teams[i].img.S %>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= teams[i].nom.S %>
-                            </h5>
-                            <p class="card-text">Equipe ?</p>
-                        </div>
-                    </div>
-                    <% } %>
-            </div> <!-- /person-list -->
-        </div> <!-- /content -->
+    <div class="container-fluid w-100 h-100 d-flex justify-content-center">
+        <div class="wrapper">
+            <div class="content w-100">
+                <img src="<%= img_url + 'colocartoon.png' %>" class="img-fluid w-100 header-img" alt="banner">
+                <div class="where">
+                    <h1>Ou?</h1>
+                </div>
+                <div class="who">
+                    <h1>Avec qui?</h1>
+                    <div class="person-list w-100">
+                        <% for (const [key, value] of Object.entries(teams)) { %>
+                            <div class="team-container">
+                                <h1>
+                                    <%= (key !='0' )? 'Equipe ' + key : 'Sans equipe' %>
+                                </h1>
+                                <% for (var i=0; i < value.length; i++) { %>
+                                    <div class="ticket">
+                                        <!-- <img src="<%= img_url + value[i].img.S + '.png' %>" class="ticket-photo"
+                                alt="<%= value[i].img.S %>" />
+                            -->
+                                        <div class="ticket-photo">
+                                            <img src="<%= img_url + 'pepouche.png' %>" alt="<%= value[i].img.S %>" />
+                                        </div>
+                                        <div class="infos">
+                                            <p class="ticket-name">
+                                                <%= value[i].prenom.S + ' ' + value[i].nom.S %>
+                                            </p>
+                                            <p class="ticket-username">
+                                                <%= '"' + value[i].pseudo.S + '"' %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+                            <% } %>
+                    </div> <!-- /person-list -->
+                </div>
+
+            </div> <!-- /content -->
+        </div> <!-- /wrapper -->
     </div> <!-- /container -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

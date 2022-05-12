@@ -51,6 +51,22 @@ if (cluster.isMaster) {
         });
     });
 
+    function sort(teams) {
+        var dict = {}
+
+        for (var i = 0; i < teams.length; i++) {
+            var team = teams[i].equipe.N;
+
+            if (dict[team] !== undefined) {
+                dict[team].push(teams[i]);
+            } else {
+                dict[team] = [teams[i]];
+            }
+        }
+
+        return dict;
+    }
+
     app.get('/colocathon', function (req, res) {
 
         var params = {
@@ -65,11 +81,13 @@ if (cluster.isMaster) {
                 for (var i in data.Items)
                     items.push(data.Items[i]);
 
+                dict = sort(items);
+
                 res.render('colocathon', {
                     static_path: 'static',
                     theme: process.env.THEME || 'flatly',
                     flask_debug: process.env.FLASK_DEBUG || 'false',
-                    teams: items,
+                    teams: dict,
                     img_url: process.env.IMG_PATH
                 });
             }
