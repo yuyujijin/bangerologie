@@ -14,16 +14,18 @@
     <!-- Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Koulen&family=Lobster&display=swap"
+        rel="stylesheet">
 
     <style>
         @font-face {
             font-family: "Fictoria";
-            src: url("https://github.com/yuyujijin/bangerologie/raw/master/bangerologie/assets/fonts/Fictoria-Regular.otf") format("otf")
+            src: url("../assets/fonts/Fictoria-Regular.woff2") format("woff2"),
+                url("../assets/fonts/Fictoria-Regular.woff") format("woff")
         }
 
         body {
-            background-color: #a6eefe;
+            background-color: #92f0fd;
         }
 
         .header-img {
@@ -39,22 +41,29 @@
         .what,
         .where {
             text-align: left;
-            font-family: 'Fictoria';
+            font-family: 'Koulen', cursive;
+            color: #102168;
         }
 
         .team-container {
             margin-bottom: 20px;
         }
 
+        .team-container h1 {
+            font-family: 'Koulen', cursive;
+            color: #102168;
+        }
+
         .ticket {
             border-radius: 15px;
-            background-color: lightsalmon;
+            background-color: rgb(255, 255, 255);
             display: inline-block;
             vertical-align: middle;
             margin: 5px;
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
             color: white;
+            background-size: cover;
         }
 
         .ticket .ticket-photo {
@@ -133,7 +142,8 @@
                                     <%= (key !='0' )? 'Equipe ' + key : 'Sans equipe' %>
                                 </h1>
                                 <% for (var i=0; i < value.length; i++) { %>
-                                    <div class="ticket">
+                                    <div class="ticket"
+                                        style="background-image: url('<%= img_url + 'equipe' + key + '.png' %>');">
                                         <!-- <img src="<%= img_url + value[i].img.S + '.png' %>" class="ticket-photo"
                                 alt="<%= value[i].img.S %>" />
                             -->
