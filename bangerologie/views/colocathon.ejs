@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -11,11 +11,20 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Montserrat -->
+    <!-- Montserrat, Koulen & Lobster -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Koulen&family=Lobster&display=swap"
         rel="stylesheet">
+    <!-- Mapbox -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- Mapbox -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
 
     <style>
         @font-face {
@@ -25,7 +34,7 @@
         }
 
         body {
-            background-color: #92f0fd;
+            background-color: #a6eefe;
         }
 
         .header-img {
@@ -43,6 +52,7 @@
             text-align: left;
             font-family: 'Koulen', cursive;
             color: #102168;
+            margin-bottom: 30px;
         }
 
         .team-container {
@@ -95,7 +105,7 @@
         }
 
         /* computer */
-        @media (min-width: 920px) {
+        @media screen and (min-width: 920px) {
             .wrapper {
                 width: 42%;
                 margin-left: auto;
@@ -106,20 +116,36 @@
                 width: 40%;
                 margin: 5px;
             }
+
+            #map {
+                width: 500px;
+                height: 300px;
+            }
         }
 
-        /* phones */
-        @media (max-width: 919) {
+        @media screen and (max-width: 919px) {
             .wrapper {
                 margin: 0;
                 width: 100%;
             }
 
             .ticket {
-                width: 100%;
-                margin: 20px;
+                width: 95%;
+                margin: 5px;
             }
 
+            #map {
+                width: 300px;
+                height: 200px;
+            }
+        }
+
+        .marker {
+            background-image: url("<%= img_url + 'beer-icon.png' %>");
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
         }
     </style>
 
@@ -131,16 +157,77 @@
             <div class="content w-100">
                 <img src="<%= img_url + 'colocartoon.png' %>" class="img-fluid w-100 header-img" alt="banner">
                 <div class="where">
-                    <h1>Ou?</h1>
+                    <h1>+ Ou?</h1>
+                    <div id='map' style='margin-left: auto; margin-right:auto'></div>
+                    <script>
+                        mapboxgl.accessToken = 'pk.eyJ1IjoieXV5dWppamluIiwiYSI6ImNsMzM5ODRiNzFlNGgzanBzbGdoY2F2cncifQ.GWSbF3ONfyt03sXPVOq04Q';
+
+                        var map = new mapboxgl.Map({
+                            container: 'map',
+                            style: 'mapbox://styles/yuyujijin/cl33a940w007k14pft5wvo6sl',
+                            center: [2.811484, 49.408859],
+                            zoom: 12
+                        });
+
+                        const geojson = {
+                            type: 'FeatureCollection',
+                            features: [
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [2.811484, 49.408859]
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Saint Fiack'
+                                    }
+                                },
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [2.821032, 49.410998]
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Animalerie'
+                                    }
+                                },
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [2.80899, 49.410408]
+                                    },
+                                    properties: {
+                                        title: 'Mapbox',
+                                        description: 'Louli & Mad'
+                                    }
+                                }
+                            ]
+                        };
+
+                        // add markers to map
+                        for (const feature of geojson.features) {
+                            // create a HTML element for each feature
+                            const el = document.createElement('div');
+                            el.className = 'marker';
+
+                            // make a marker for each feature and add to the map
+                            new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+                        }
+
+                    </script>
                 </div>
                 <div class="who">
-                    <h1>Avec qui?</h1>
+                    <h1>+ Avec qui?</h1>
                     <div class="person-list w-100">
                         <% for (const [key, value] of Object.entries(teams)) { %>
                             <div class="team-container">
-                                <h1>
+                                <h3>
                                     <%= (key !='0' )? 'Equipe ' + key : 'Sans equipe' %>
-                                </h1>
+                                </h3>
                                 <% for (var i=0; i < value.length; i++) { %>
                                     <div class="ticket"
                                         style="background-image: url('<%= img_url + 'equipe' + key + '.png' %>');">
@@ -169,9 +256,6 @@
         </div> <!-- /wrapper -->
     </div> <!-- /container -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
