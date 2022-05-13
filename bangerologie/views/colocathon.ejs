@@ -156,6 +156,22 @@
             height: 30px;
             cursor: pointer;
         }
+
+        .marker-weed {
+            background-image: url("<%= img_url + 'weed-icon.png' %>");
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .marker-bear {
+            background-image: url("<%= img_url + 'bear-icon.png' %>");
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -230,8 +246,14 @@
                         // add markers to map
                         for (const feature of geojson.features) {
                             // create a HTML element for each feature
-                            const el = document.createElement('div');
+                            var el = document.createElement('div');
                             el.className = 'marker';
+
+                            if (feature.description == 'Animalerie') {
+                                el.className = 'marker-weed';
+                            } else if (feature.description === 'Saint Fiack') {
+                                el.className = 'marker-bear';
+                            }
 
                             // make a marker for each feature and add to the map
                             new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
