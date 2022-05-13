@@ -109,6 +109,10 @@
             margin-bottom: 0;
         }
 
+        .time_table {
+            width: 80%;
+        }
+
         /* computer */
         @media screen and (min-width: 920px) {
             .wrapper {
@@ -161,6 +165,16 @@
         <div class="wrapper">
             <div class="content w-100">
                 <img src="<%= img_url + 'colocartoon.png' %>" class="img-fluid w-100 header-img" alt="banner">
+                <div class="what">
+                    <h1>+ Consignes</h1>
+                    <h3 style="text-align:center">
+                        Depart <span style="color:#6c9ccd;"><del>18h30</del></span> <span
+                            style="font-weight:bold;">19h</span>
+                        &bull; Demarrage a vos colocs assignees (cf. <a href="#time_table">time table</a>)
+                        &bull; Ramenez vos tises &
+                        ters (pour augmenter les stocks)
+                    </h3>
+                </div>
                 <div class="where">
                     <h1>+ Ou?</h1>
                     <div id='map' style='margin-left: auto; margin-right:auto'></div>
@@ -225,16 +239,6 @@
 
                     </script>
                 </div>
-                <div class="what">
-                    <h1>+ Comment?</h1>
-                    <h3 style="text-align:center">
-                        Depart <span style="color:#6c9ccd;"><del>18h30</del></span> <span
-                            style="font-weight:bold;">19h</span>
-                        &bull; Demarrage a vos colocs assignees
-                        &bull; Ramenez vos tises &
-                        ters (pour augmenter les stocks)
-                    </h3>
-                </div>
                 <div class="who">
                     <h1>+ Avec qui?</h1>
                     <div class="person-list w-100">
@@ -265,8 +269,15 @@
                             <% } %>
                     </div> <!-- /person-list -->
                 </div>
-
+                <div class="what" id="time_table">
+                    <h3>+ On defi qui?</h3>
+                    <img src="<%= img_url + 'time_table.png' %>" class="time_table" alt="time_table">
+                </div>
             </div> <!-- /content -->
+            <div class="footer" style="text-align:center; padding : 40px;">
+                <p>Tout droit reservé a toute l'équipe des bangerologues</p>
+                <p>&bull; Amusez vous bien :-) &bull;</p>
+            </div>
         </div> <!-- /wrapper -->
     </div> <!-- /container -->
 
